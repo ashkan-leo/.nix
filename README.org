@@ -1,0 +1,16 @@
+#+TITLE: Nix Files
+
+* Table of Contents :TOC_3:
+- [[#my-dotfiles][My dotfiles]]
+- [[#introduction][Introduction]]
+
+* My dotfiles
++ *Operating System:* Mac OS
++ *Shell:* fish
++ *Editor:* Doom Emacs with my /Pip Boy/ Emacs Configurations
++ *Terminal:* Kitty
++ *Browser:* Firefox
+
+* Introduction
+This repository is an on-going effort to move my dotfiles to ~nix~ package manager
+from ~homebrew~.
