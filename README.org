@@ -3,6 +3,12 @@
 * Table of Contents :TOC_3:
 - [[#my-dotfiles][My dotfiles]]
 - [[#introduction][Introduction]]
+- [[#installation][Installation]]
+  - [[#mac-os][Mac OS]]
+- [[#complications][Complications]]
+  - [[#fish-shell-support][~fish~ Shell Support]]
+- [[#bugs][Bugs]]
+  - [[#problems-with-multi-user-reinstallation-of-nix-on-macos--issue-3261][Problems with multi-user (re)installation of nix on macOS · Issue #3261]]
 
 * My dotfiles
 + *Operating System:* Mac OS
@@ -10,7 +16,41 @@
 + *Editor:* Doom Emacs with my /Pip Boy/ Emacs Configurations
 + *Terminal:* Kitty
 + *Browser:* Firefox
-
 * Introduction
 This repository is an on-going effort to move my dotfiles to ~nix~ package manager
-from ~homebrew~.
+from ~homebrew~. Nix is a purely functional language and package manager.
+* Installation
+** Mac OS
+1. Install multi-user nix
+   #+BEGIN_SRC bash
+   # curl -L https://nixos.org/nix/install | sh
+   #+END_SRC
+
+2. Verify ~/nix~ is created in the file system.
+
+3. Install nix-darwin:
+   #+BEGIN_SRC bash
+   nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+   ./result/bin/darwin-installer
+   #+END_SRC
+
+4. Run ~nix-channel list~ and verify
+    ~darwin https://github.com/LnL7/nix-darwin/archive/master.tar.gz~ is present
+   in the output of
+   
+
+* Complications
+** ~fish~ Shell Support
+~fish~ shell support is goofy. There is a [[https://github.com/lilyball/nix-env.fish][fish plugin]] that needs to be installed.
+* Bugs
+** [[https://github.com/NixOS/nix/issues/3261][Problems with multi-user (re)installation of nix on macOS · Issue #3261]]
++ nix command crash with:
+  #+BEGIN_QUOTE
+  error (ignored): unable to download [...]: Problem with the SSL CA cert (path? access rights?) (77)
+  #+END_QUOTE
++ Solution:
+  #+BEGIN_SRC bash
+  sudo launchctl setenv NIX_SSL_CERT_FILE /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+  sudo launchctl kickstart -k system/org.nixos.nix-daemon
+  nix-shell -p nix-info --run "nix-info -m"
+  #+END_SRC

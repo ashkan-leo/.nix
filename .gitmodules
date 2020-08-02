@@ -1,0 +1,10 @@
+[submodule "home-manager"]
+	path = home-manager
+	url = git@github.com:ashkan-leo/home-manager.git
+	branch = master
+[submodule "nixpkgs"]
+	path = nixpkgs
+	url = git@github.com:ashkan-leo/nixpkgs.git
+[submodule "nix-darwin"]
+	path = nix-darwin
+	url = git@github.com:ashkan-leo/nix-darwin.git
